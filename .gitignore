@@ -1,4 +1,4 @@
-/target/
+target/
 
 
 ### STS ###
@@ -26,3 +26,4 @@
 .mvn/wrapper/maven-wrapper.jar
 .mvn/wrapper/maven-wrapper.properties
 /packages/
+deploy/

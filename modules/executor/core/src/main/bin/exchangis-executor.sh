@@ -59,6 +59,17 @@ is_sudo_user(){
   sudo -v >/dev/null 2>&1
 }
 
+set_java_library_path() {
+  case "$OSTYPE" in
+    solaris*) echo "SOLARIS" ;;
+    darwin*)  export  JAVA_LIBRARY_PATH=${JAVA_LIBRARY_PATH}:${BIN}/../native ;;
+    linux*)   export  LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${BIN}/../native ;;
+    bsd*)     echo "BSD" ;;
+    msys*)    export  PATH=${PATH}:${BIN}/../native ;;
+    *)        echo "unknown: $OSTYPE" ;;
+  esac
+}
+
 load_env(){
     LOG INFO "load environment variables"
     while read line
@@ -76,7 +87,8 @@ load_env(){
 
 BIN=`abs_path`
 SHELL_LOG="${BIN}/console.out"
-export  LD_LIBRARY_PATH=${LD_LIBRARY_PATH}:${BIN}/../native
+
+set_java_library_path
 load_env
 
 #verify environment
